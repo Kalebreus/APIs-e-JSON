@@ -1,0 +1,7 @@
+{
+  "id": 1,
+  "name": "Ana Exemplo",
+  "email": "ana@example.com",
+  "ativo": true,
+  "interesses": ["JavaScript", "APIs"]
+}

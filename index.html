@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>APIs e JSON: como o JavaScript conversa com o mundo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="api.js" defer></script>
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>APIs e JSON</h1>
+      <p>Uma sequência prática: texto JSON, valores JavaScript, consultas HTTP e código assíncrono.</p>
+      <p id="aviso-http" class="aviso" hidden>Sirva esta pasta por HTTP conforme o README. Abrir o HTML por file:// pode impedir as consultas com fetch.</p>
+
+      <section aria-labelledby="titulo-json">
+        <h2 id="titulo-json">1. Básico: JSON é texto</h2>
+        <label for="texto-json">Texto para interpretar com JSON.parse</label>
+        <textarea id="texto-json" rows="5" spellcheck="false">{"nome":"Ana","ativo":true,"pontos":15}</textarea>
+        <div class="acoes">
+          <button id="interpretar-json" type="button">Interpretar JSON</button>
+          <button id="gerar-json" type="button">Gerar JSON de um objeto</button>
+        </div>
+        <p id="estado-json" role="status">Experimente um objeto, um array ou outro valor JSON válido.</p>
+        <pre id="resultado-json" aria-label="Resultado da conversão"></pre>
+      </section>
+
+      <section aria-labelledby="titulo-consulta">
+        <h2 id="titulo-consulta">2. Intermediário: buscar e interpretar uma resposta</h2>
+        <form id="form-consulta">
+          <label for="origem">Origem dos dados</label>
+          <select id="origem">
+            <option value="local">Arquivo JSON local servido por HTTP</option>
+            <option value="lento">Arquivo local com espera simulada de 2 segundos</option>
+            <option value="publica">API pública JSONPlaceholder — dados fictícios</option>
+          </select>
+          <label for="usuario-id">ID do usuário na API pública</label>
+          <input id="usuario-id" type="number" min="1" step="1" value="1" disabled>
+          <label for="limite-ms">Limite de espera, em milissegundos</label>
+          <input id="limite-ms" type="number" min="100" max="30000" step="100" value="8000">
+          <div class="acoes">
+            <button id="consultar" type="submit">Consultar</button>
+            <button id="cancelar" type="button" disabled>Cancelar consulta</button>
+          </div>
+        </form>
+        <p>A opção local lê um arquivo estático, não um backend implementado. A espera de 2 segundos é uma simulação antes do fetch. A opção pública consulta um serviço externo de dados fictícios.</p>
+        <p>URL consultada: <code id="url-consultada">Nenhuma consulta iniciada.</code></p>
+        <p id="estado-consulta" role="status" data-estado="idle">Aguardando uma consulta.</p>
+        <div id="painel-resposta" aria-busy="false">
+          <pre id="resultado-consulta" aria-label="Dados recebidos em JSON"></pre>
+        </div>
+        <div class="acoes">
+          <button id="erro-http" type="button">Testar HTTP 404 local</button>
+          <button id="erro-json" type="button">Testar JSON inválido local</button>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-assincrono">
+        <h2 id="titulo-assincrono">3. Avançado: espera, cancelamento e interface disponível</h2>
+        <p>Selecione a espera simulada e clique em Consultar. Enquanto aguarda, use o contador abaixo. Para testar timeout, escolha 500 ms; para testar cancelamento manual, mantenha 8000 ms e clique em Cancelar consulta.</p>
+        <div class="acoes">
+          <button id="contar" type="button">A interface continua respondendo</button>
+          <button id="mostrar-ordem" type="button">Demonstrar ordem assíncrona</button>
+        </div>
+        <p id="contador" role="status">Interações: 0</p>
+        <pre id="ordem-assincrona" aria-label="Ordem das operações"></pre>
+        <p>Na demonstração de ordem, a operação assíncrona é um temporizador de 1 segundo. É uma simulação local, sem consulta ao serviço público.</p>
+      </section>
+      <noscript>Ative o JavaScript no navegador para executar os exemplos.</noscript>
+    </main>
+  </body>
+</html>
